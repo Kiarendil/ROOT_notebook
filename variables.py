@@ -71,7 +71,7 @@ PDG_C            =   29979245800. # in cm/c
 #
 SAMEEVENT            = ROOT.RooRealVar('SAMEEVENT'      , 'SAMEEVENT', -0.5, 1.5)
 Ncands               = ROOT.RooRealVar('Ncands'         , 'Ncands'   , -0.1, 1000)
-run                  = ROOT.RooRealVar('run'            ,  'run'     , 100000, 350000)
+run                  = ROOT.RooRealVar('run'            ,  'run'     , 100000, 370000)
 event                = ROOT.RooRealVar('event'          ,  'event'   , 0, 10000000000)
 lumi                 = ROOT.RooRealVar('lumi'           ,  'lumi'    , 0, 4000)
 
