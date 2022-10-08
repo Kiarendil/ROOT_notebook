@@ -326,6 +326,7 @@ TRIG_PripTrDisplaced    =   ROOT.RooRealVar('TRIG_PripTrDisplaced'  , 'TRIG_Prip
 
 
 lumi_13TeV = {2016: 36.1, 2017: 42.1, 2018: 61.6}
+lumi_136TeV = {2022: "~5"}
 
 
 ### Tp = Tlab * sqrt(1-v2/c2) = d/v * sqrt(1-v2/c2)
@@ -401,13 +402,13 @@ def get_fr_bin(N, var, frame):
         return res
 
 
-
-def get_yaer(y16, y17, y18):
+def get_yaer(y16, y17, y18, y22):
     cut, per = '', 0
     cut2016 = 'run > 270000 && run < 290000'
     cut2017 = 'run > 290001 && run < 310000'
     cut2018 = 'run > 310001 && run < 330000'
-    
+    cut2022 = 'run > 340001 && run < 370000'
+
     lumi = 0
     
     if y16:
@@ -422,6 +423,11 @@ def get_yaer(y16, y17, y18):
         cut = cut2018
         lumi += lumi_13TeV[2018]
         per = 18
+
+    if y22:
+        cut = cut2022
+        lumi = lumi_136TeV[2022]
+        per = 22
     
     if y16 and y17:
         cut = '((' + cut2016 + ') || (' + cut2017 + '))' 
@@ -435,11 +441,13 @@ def get_yaer(y16, y17, y18):
     if y16 and y17 and y18:
         cut = '((' + cut2016 + ') || (' + cut2017 + ') || (' + cut2018 + '))'
         per = 4
-    
-    if lumi > 70:
-        lumi = round(lumi)
+
+    try:
+        if lumi > 70:
+            lumi = round(lumi)
+    except TypeError:
+        pass
     return cut, lumi, per
-  
     
 def get_MC_years(y16, y17, y18):
     year = ''
